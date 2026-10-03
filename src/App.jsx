@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import "./App.css"
 import HealthCard from "./components/HealthCard"
-import MetricBar from "./components/MetricBar"
 import {
   getHealthStatus,
   getTeamHealthStatus,
 } from "./utils/healthCalculations"
 import HealthSignals from "./components/HealthSignals"
+import TeamHealth from "./components/TeamHealth"
 
 const initialProject = {
   name: "Website Modernization",
@@ -205,31 +205,11 @@ const workloadWarning =
 
         </section>
 
-        <section className="dashboard-section">
-          <h2>Team Health</h2>
-
-          <MetricBar
-              label="Capacity"
-              value={project.teamHealth.capacity}
-            />
-
-            <MetricBar
-              label="Morale"
-              value={project.teamHealth.morale}
-            />
-
-            <MetricBar
-              label="Sustainability"
-              value={project.teamHealth.sustainability}
-            />
-
-            <MetricBar
-              label="Psychological Safety"
-              value={project.teamHealth.psychologicalSafety}
-            />
-
-            
-</section>
+        <TeamHealth
+          teamHealth={project.teamHealth}
+          teamHealthInsight={teamHealthInsight}
+          workloadWarning={workloadWarning}
+        />
 <HealthSignals signals={project.teamHealth.signals} />
        
       <section className="dashboard-section">
