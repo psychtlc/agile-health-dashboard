@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./App.css"
 import HealthCard from "./components/HealthCard"
 import MetricBar from "./components/MetricBar"
@@ -87,7 +87,13 @@ function getTeamHealthInsight(teamHealth) {
 }
 
 function App() {
-  const [project, setProject] = useState(initialProject)
+  const [project, setProject] = useState(() => {
+  const savedProject = localStorage.getItem("agileHealthProject")
+
+  return savedProject
+    ? JSON.parse(savedProject)
+    : initialProject
+})
   const [isEditing, setIsEditing] = useState(false)
   const [editProject, setEditProject] = useState(initialProject)
   const deliveryPercentage =
@@ -619,6 +625,10 @@ const workloadWarning =
                     className="save-button"
                     onClick={() => {
                       setProject(editProject)
+                      localStorage.setItem(
+                        "agileHealthProject",
+                        JSON.stringify(editProject)
+                      )
                       setIsEditing(false)
                     }}
                   >
