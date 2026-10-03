@@ -1,0 +1,503 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+
+  color: #172033;
+  background: #f4f6f8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #f4f6f8;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 32px 64px;
+}
+
+/* --------------------------------
+   Header
+-------------------------------- */
+
+.project-header {
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #667085;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.project-header h1 {
+  margin: 0;
+  color: #101828;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.project-meta {
+  margin: 10px 0 0;
+  color: #667085;
+  font-size: 0.95rem;
+}
+
+/* --------------------------------
+   Summary cards
+-------------------------------- */
+
+.health-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.health-card {
+  min-height: 190px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e4e7ec;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.04);
+}
+
+.card-label {
+  margin: 0;
+  color: #667085;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.health-status {
+  margin-top: 20px;
+  font-size: 1.35rem;
+}
+
+.health-card h2 {
+  margin: 6px 0 0;
+  color: #101828;
+  font-size: 2.4rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.health-card p:last-child {
+  margin-top: 8px;
+  color: #667085;
+}
+
+/* --------------------------------
+   Dashboard sections
+-------------------------------- */
+
+.dashboard-section {
+  margin-top: 24px;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e4e7ec;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.03);
+}
+
+.dashboard-section h2 {
+  margin: 0 0 20px;
+  color: #101828;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+/* --------------------------------
+   Sprint progress
+-------------------------------- */
+
+.progress-bar {
+  width: 100%;
+  height: 14px;
+  overflow: hidden;
+  background: #eaecf0;
+  border-radius: 999px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #344054;
+  border-radius: inherit;
+  transition: width 300ms ease;
+}
+
+.progress-summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  color: #667085;
+  font-size: 0.9rem;
+}
+
+/* --------------------------------
+   Team health
+-------------------------------- */
+
+.risk-list {
+  display: grid;
+  gap: 10px;
+}
+
+.risk-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #f8fafc;
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+}
+
+.risk-item span:first-child {
+  color: #475467;
+}
+
+.risk-item strong {
+  margin-left: auto;
+  color: #101828;
+}
+
+/* --------------------------------
+   Responsive layout
+-------------------------------- */
+
+@media (max-width: 800px) {
+  .app {
+    padding: 28px 20px 48px;
+  }
+
+  .health-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .health-card {
+    min-height: auto;
+  }
+  .signal-grid {
+  grid-template-columns: 1fr;
+}
+}
+
+@media (max-width: 500px) {
+  .app {
+    padding: 24px 16px 40px;
+  }
+
+  .dashboard-section {
+    padding: 20px;
+  }
+
+  .progress-summary {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+}
+.edit-button {
+  display: block;
+  margin: 24px 0 0 auto;
+  padding: 10px 18px;
+  color: #ffffff;
+  background: #344054;
+  border: 0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background: #1d2939;
+}
+.edit-panel {
+  margin-top: 24px;
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e4e7ec;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.03);
+}
+
+.edit-panel h2 {
+  margin: 0 0 20px;
+  color: #101828;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+.edit-panel p {
+  margin: 0;
+  color: #667085;
+}
+.edit-panel label {
+  display: grid;
+  gap: 8px;
+  color: #344054;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.edit-panel input {
+  width: 100%;
+  padding: 10px 12px;
+  color: #101828;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.edit-panel input:focus {
+  border-color: #667085;
+  box-shadow: 0 0 0 3px rgba(52, 64, 84, 0.08);
+}
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.cancel-button,
+.save-button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-button {
+  color: #344054;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+}
+
+.cancel-button:hover {
+  background: #f9fafb;
+}
+
+.save-button {
+  color: #ffffff;
+  background: #344054;
+  border: 1px solid #344054;
+}
+
+.save-button:hover {
+  background: #1d2939;
+}
+.team-health-list {
+  display: grid;
+  gap: 20px;
+}
+
+.team-health-item {
+  display: grid;
+  gap: 8px;
+}
+
+.team-health-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: #344054;
+  font-size: 0.9rem;
+}
+
+.team-health-header strong {
+  color: #101828;
+}
+
+.metric-bar {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  background: #eaecf0;
+  border-radius: 999px;
+}
+
+.metric-fill {
+  height: 100%;
+  background: #667085;
+  border-radius: inherit;
+  transition: width 300ms ease;
+}
+.metric-fill.green {
+  background: #12b76a;
+}
+
+.metric-fill.yellow {
+  background: #f79009;
+}
+
+.metric-fill.red {
+  background: #f04438;
+}
+.health-insight {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+}
+
+.health-insight p {
+  margin: 0 !important;
+  color: #475467 !important;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.health-insight.warning {
+  background: #fffaeb;
+  border-color: #fedf89;
+}
+.risk-item div p {
+  margin: 4px 0 0;
+  color: #667085;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+.edit-group {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #eaecf0;
+}
+
+.edit-group h3 {
+  margin: 0;
+  color: #101828;
+  font-size: 1rem;
+}
+.add-context-button {
+  justify-self: start;
+  padding: 9px 14px;
+  color: #344054;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-context-button:hover {
+  background: #f9fafb;
+}
+.context-edit-item {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border: 1px solid #eaecf0;
+  border-radius: 10px;
+}
+.remove-context-button {
+  justify-self: start;
+  padding: 8px 12px;
+  color: #b42318;
+  background: #ffffff;
+  border: 1px solid #fecdca;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.remove-context-button:hover {
+  background: #fef3f2;
+}
+.edit-panel select {
+  width: 100%;
+  padding: 10px 12px;
+  color: #101828;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.edit-panel select:focus {
+  border-color: #667085;
+  box-shadow: 0 0 0 3px rgba(52, 64, 84, 0.08);
+}
+.impact-badge {
+  margin-left: auto;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.impact-badge.low {
+  color: #175cd3;
+  background: #eff8ff;
+}
+
+.impact-badge.medium {
+  color: #b54708;
+  background: #fffaeb;
+}
+
+.impact-badge.high {
+  color: #b42318;
+  background: #fef3f2;
+}
+.signal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.signal-card {
+  padding: 18px;
+  background: #f8fafc;
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+}
+
+.signal-card span {
+  display: block;
+  color: #667085;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.signal-card strong {
+  display: block;
+  margin-top: 8px;
+  color: #101828;
+  font-size: 1.8rem;
+}
+
+.signal-card p {
+  margin: 4px 0 0;
+  color: #667085;
+  font-size: 0.8rem;
+}
