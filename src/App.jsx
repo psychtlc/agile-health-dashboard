@@ -7,6 +7,7 @@ import {
 } from "./utils/healthCalculations"
 import HealthSignals from "./components/HealthSignals"
 import TeamHealth from "./components/TeamHealth"
+import OrganizationalContext from "./components/OrganizationalContext"
 
 const initialProject = {
   name: "Website Modernization",
@@ -212,30 +213,7 @@ const workloadWarning =
         />
 <HealthSignals signals={project.teamHealth.signals} />
        
-      <section className="dashboard-section">
-          <h2>Organizational Context</h2>
-
-          <div className="risk-list">
-            {project.organizationalContext.map((context) => (
-              <div
-                className="risk-item"
-                key={context.description}
-              >
-                <span>ℹ️</span>
-
-                <div>
-                  <strong>{context.type}</strong>
-                  <p>{context.description}</p>
-                </div>
-
-                <span className={`impact-badge ${context.impact}`}>
-                  {context.impact}
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
-
+<OrganizationalContext context={project.organizationalContext} />
         <section className="dashboard-section">
 
           <h2>Risks & Blockers</h2>
