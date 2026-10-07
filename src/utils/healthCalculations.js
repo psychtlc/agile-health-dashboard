@@ -32,3 +32,23 @@ export function getTeamHealthStatus(teamHealth) {
 
   return getHealthStatus(average)
 }
+export function getDeliveryPercentage(delivery) {
+  return Math.round(
+    (delivery.completedPoints / delivery.plannedPoints) * 100
+  )
+}
+export function getTeamHealthScore(teamHealth) {
+  const scores = [
+    teamHealth.capacity,
+    teamHealth.morale,
+    teamHealth.sustainability,
+    teamHealth.psychologicalSafety,
+  ]
+
+  return Math.round(
+    scores.reduce((total, score) => total + score, 0) /
+      scores.length
+  )
+}export function hasWorkloadWarning(teamHealth) {
+  return teamHealth.signals.unplannedWork >= 15
+}

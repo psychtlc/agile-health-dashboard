@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest"
-import { getHealthStatus, getTeamHealthStatus } from "./healthCalculations"
+import {
+  getHealthStatus,
+  getTeamHealthStatus,
+  getDeliveryPercentage,
+  getTeamHealthScore,
+  hasWorkloadWarning,
+} from "./healthCalculations"
 
 describe("getHealthStatus", () => {
   it("returns green for scores of 80 or higher", () => {
@@ -39,5 +45,50 @@ describe("getTeamHealthStatus", () => {
     }
 
     expect(getTeamHealthStatus(teamHealth)).toBe("yellow")
+  })
+})
+describe("getDeliveryPercentage", () => {
+  it("calculates delivery percentage", () => {
+    expect(
+      getDeliveryPercentage({
+        completedPoints: 41,
+        plannedPoints: 50,
+      })
+    ).toBe(82)
+  })
+})
+
+describe("getTeamHealthScore", () => {
+  it("calculates the average team health score", () => {
+    expect(
+      getTeamHealthScore({
+        capacity: 84,
+        morale: 71,
+        sustainability: 68,
+        psychologicalSafety: 86,
+      })
+    ).toBe(77)
+  })
+})
+
+describe("hasWorkloadWarning", () => {
+  it("returns true when unplanned work reaches the threshold", () => {
+    expect(
+      hasWorkloadWarning({
+        signals: {
+          unplannedWork: 15,
+        },
+      })
+    ).toBe(true)
+  })
+
+  it("returns false when unplanned work is below the threshold", () => {
+    expect(
+      hasWorkloadWarning({
+        signals: {
+          unplannedWork: 14,
+        },
+      })
+    ).toBe(false)
   })
 })

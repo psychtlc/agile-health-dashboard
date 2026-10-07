@@ -4,6 +4,9 @@ import HealthCard from "./components/HealthCard"
 import {
   getHealthStatus,
   getTeamHealthStatus,
+  getDeliveryPercentage,
+  getTeamHealthScore,
+  hasWorkloadWarning,
 } from "./utils/healthCalculations"
 import HealthSignals from "./components/HealthSignals"
 import TeamHealth from "./components/TeamHealth"
@@ -98,33 +101,24 @@ function App() {
     ? JSON.parse(savedProject)
     : initialProject
 })
-  const [isEditing, setIsEditing] = useState(false)
-  const [editProject, setEditProject] = useState(initialProject)
-  const deliveryPercentage =
-    Math.round(
-      (project.delivery.completedPoints /
-        project.delivery.plannedPoints) *
-        100
-    )
-  const deliveryStatus = getHealthStatus(deliveryPercentage)
-const teamHealthScores = [
-  project.teamHealth.capacity,
-  project.teamHealth.morale,
-  project.teamHealth.sustainability,
-  project.teamHealth.psychologicalSafety,
-]
-  const teamHealthScore = Math.round(
-  teamHealthScores.reduce((total, score) => total + score, 0) /
-    teamHealthScores.length
-  )
+const [isEditing, setIsEditing] = useState(false)
+const [editProject, setEditProject] = useState(initialProject)
+const deliveryPercentage = getDeliveryPercentage(
+  project.delivery
+)
+const deliveryStatus = getHealthStatus(deliveryPercentage)
+const teamHealthScore = getTeamHealthScore(
+  project.teamHealth
+)
 
 const teamHealthStatus = getTeamHealthStatus(
   project.teamHealth
 )
 
 const teamHealthInsight = getTeamHealthInsight(project.teamHealth)
-const workloadWarning =
-  project.teamHealth.signals.unplannedWork >= 15
+const workloadWarning = hasWorkloadWarning(
+  project.teamHealth
+)
   return (
     <div className="app">
       <header className="project-header">
