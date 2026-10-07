@@ -65,7 +65,92 @@ function EditProject({
           />
         </label>
       </div>
+            <div className="edit-group">
+  <h3>Team Members</h3>
 
+  {editProject.team.map((member, index) => (
+    <div className="team-member-edit-item" key={member.id}>
+      <label>
+        Name
+        <input
+          type="text"
+          value={member.name}
+          onChange={(event) => {
+            const updatedTeam = [...editProject.team]
+
+            updatedTeam[index] = {
+              ...updatedTeam[index],
+              name: event.target.value,
+            }
+
+            setEditProject({
+              ...editProject,
+              team: updatedTeam,
+            })
+          }}
+        />
+      </label>
+
+      <label>
+        Role
+        <input
+          type="text"
+          value={member.role}
+          onChange={(event) => {
+            const updatedTeam = [...editProject.team]
+
+            updatedTeam[index] = {
+              ...updatedTeam[index],
+              role: event.target.value,
+            }
+
+            setEditProject({
+              ...editProject,
+              team: updatedTeam,
+            })
+          }}
+        />
+      </label>
+
+      <button
+        type="button"
+        className="remove-team-button"
+        onClick={() => {
+          const updatedTeam = editProject.team.filter(
+            (_, teamIndex) => teamIndex !== index
+          )
+
+          setEditProject({
+            ...editProject,
+            team: updatedTeam,
+          })
+        }}
+      >
+        Remove
+      </button>
+    </div>
+  ))}
+
+  <button
+    type="button"
+    className="add-team-button"
+    onClick={() =>
+      setEditProject({
+        ...editProject,
+        team: [
+          ...editProject.team,
+          {
+            id: `tm-${Date.now()}`,
+            name: "",
+            role: "",
+          },
+        ],
+      })
+    }
+  >
+    + Add Team Member
+  </button>
+</div>
       <div className="edit-group">
         <h3>Team Health</h3>
 

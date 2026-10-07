@@ -13,13 +13,34 @@ import TeamHealth from "./components/TeamHealth"
 import OrganizationalContext from "./components/OrganizationalContext"
 import RisksBlockers from "./components/RisksBlockers"
 import EditProject from "./components/EditProject"
+import TeamMembers from "./components/TeamMembers"
 
 const initialProject = {
   name: "Website Modernization",
-  sprint: 14,
-  sprintDates: "September 28 – October 9",
-  teamSize: 7,
+  sprint: {
+    number: 14,
+    name: "Foundation & API Integration",
+    startDate: "2026-09-28",
+    endDate: "2026-10-09",
+  },
 
+  team: [
+    {
+      id: "tm-001",
+      name: "Tara Glover",
+      role: "Senior Developer",
+    },
+    {
+      id: "tm-002",
+      name: "Ellen Robinson",
+      role: "Product Manager",
+    },
+    {
+      id: "tm-003",
+      name: "Morgan Smith",
+      role: "UX Designer",
+    },
+  ],
   delivery: {
     status: "green",
     completedPoints: 41,
@@ -94,6 +115,7 @@ function getTeamHealthInsight(teamHealth) {
 }
 
 function App() {
+//console.log(initialProject)
   const [project, setProject] = useState(() => {
   const savedProject = localStorage.getItem("agileHealthProject")
 
@@ -127,8 +149,10 @@ const workloadWarning = hasWorkloadWarning(
         <h1>{project.name}</h1>
 
         <p className="project-meta">
-          Sprint {project.sprint} · {project.sprintDates} ·{" "}
-          {project.teamSize} team members
+          Sprint {project.sprint.number}: {project.sprint.name}
+        </p>
+         <p className="project-meta">
+           {project.sprint.startDate} – {project.sprint.endDate}
         </p>
       </header>
 
@@ -207,6 +231,7 @@ const workloadWarning = hasWorkloadWarning(
           teamHealthInsight={teamHealthInsight}
           workloadWarning={workloadWarning}
         />
+<TeamMembers team={project.team} />
 <HealthSignals signals={project.teamHealth.signals} />
        
 <OrganizationalContext context={project.organizationalContext} />
