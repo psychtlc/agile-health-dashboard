@@ -25,7 +25,77 @@ function EditProject({
           />
         </label>
       </div>
+            <div className="edit-group">
+                  <h3>Sprint</h3>
 
+                  <label>
+                    Sprint Name
+                    <input
+                      type="text"
+                      value={editProject.sprint.name}
+                      onChange={(event) =>
+                        setEditProject({
+                          ...editProject,
+                          sprint: {
+                            ...editProject.sprint,
+                            name: event.target.value,
+                          },
+                        })
+                      }
+                    />
+                  </label>
+
+                  <label>
+                    Sprint Goal
+                    <input
+                      type="text"
+                      value={editProject.sprint.goal}
+                      onChange={(event) =>
+                        setEditProject({
+                          ...editProject,
+                          sprint: {
+                            ...editProject.sprint,
+                            goal: event.target.value,
+                          },
+                        })
+                      }
+                    />
+                  </label>
+
+                  <label>
+                    Start Date
+                    <input
+                      type="date"
+                      value={editProject.sprint.startDate}
+                      onChange={(event) =>
+                        setEditProject({
+                          ...editProject,
+                          sprint: {
+                            ...editProject.sprint,
+                            startDate: event.target.value,
+                          },
+                        })
+                      }
+                    />
+                  </label>
+
+                  <label>
+                    End Date
+                    <input
+                      type="date"
+                      value={editProject.sprint.endDate}
+                      onChange={(event) =>
+                        setEditProject({
+                          ...editProject,
+                          sprint: {
+                            ...editProject.sprint,
+                            endDate: event.target.value,
+                          },
+                        })
+                      }
+                    />
+                  </label>
+                </div>
       <div className="edit-group">
         <h3>Delivery</h3>
 

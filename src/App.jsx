@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./App.css"
 import HealthCard from "./components/HealthCard"
 import {
@@ -17,13 +17,16 @@ import TeamMembers from "./components/TeamMembers"
 
 const initialProject = {
   name: "Website Modernization",
-  sprint: {
+  sprints: [
+  {
+    id: "sprint-014",
     number: 14,
     name: "Foundation & API Integration",
     startDate: "2026-09-28",
     endDate: "2026-10-09",
+    teamMemberIds: ["tm-001", "tm-002", "tm-003"],
   },
-
+],
   team: [
     {
       id: "tm-001",
@@ -116,15 +119,23 @@ function getTeamHealthInsight(teamHealth) {
 
 function App() {
 //console.log(initialProject)
-  const [project, setProject] = useState(() => {
-  const savedProject = localStorage.getItem("agileHealthProject")
 
-  return savedProject
-    ? JSON.parse(savedProject)
-    : initialProject
-})
-const [isEditing, setIsEditing] = useState(false)
-const [editProject, setEditProject] = useState(initialProject)
+  const [project, setProject] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const [editProject, setEditProject] = useState(null)
+useEffect(() => {
+  fetch("http://localhost:3001/api/projects/proj-001/dashboard")
+    .then((response) => response.json())
+    .then((data) => {
+      setProject(data)
+    })
+}, [])
+
+if (!project) {
+  return <p>Loading project...</p>
+}
+const currentSprint = project.sprint
+
 const deliveryPercentage = getDeliveryPercentage(
   project.delivery
 )
@@ -141,6 +152,7 @@ const teamHealthInsight = getTeamHealthInsight(project.teamHealth)
 const workloadWarning = hasWorkloadWarning(
   project.teamHealth
 )
+
   return (
     <div className="app">
       <header className="project-header">
@@ -149,10 +161,10 @@ const workloadWarning = hasWorkloadWarning(
         <h1>{project.name}</h1>
 
         <p className="project-meta">
-          Sprint {project.sprint.number}: {project.sprint.name}
+          Sprint {currentSprint.number}: {currentSprint.name}
         </p>
          <p className="project-meta">
-           {project.sprint.startDate} – {project.sprint.endDate}
+           {currentSprint.startDate} – {currentSprint.endDate}
         </p>
       </header>
 
@@ -240,9 +252,9 @@ const workloadWarning = hasWorkloadWarning(
           <button
             className="edit-button"
             onClick={() => {
-              setEditProject(project)
-              setIsEditing(true)
-            }}
+            setEditProject(project)
+            setIsEditing(true)
+          }}
           >
             Edit Project
           </button>
@@ -250,16 +262,34 @@ const workloadWarning = hasWorkloadWarning(
             <EditProject
               editProject={editProject}
               setEditProject={setEditProject}
-              onSave={() => {
-                setProject(editProject)
-
-                localStorage.setItem(
-                  "agileHealthProject",
-                  JSON.stringify(editProject)
-                )
-
-                setIsEditing(false)
-              }}
+             onSave={() => {
+              console.log("Saving project:", editProject)
+              fetch("http://localhost:3001/api/projects/proj-001", {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                
+                body: JSON.stringify({
+                  name: editProject.name,
+                  description: editProject.description,
+                  team: editProject.team,
+                  sprint: editProject.sprint,
+                  delivery: editProject.delivery,
+                  teamHealth: editProject.teamHealth,
+                  organizationalContext: editProject.organizationalContext,
+                }),
+              })
+                .then((response) => response.json())
+                .then((updatedProject) => {
+                  console.log("API response after save:", updatedProject)
+                  setProject({
+                    ...project,
+                    ...updatedProject,
+                  })
+                  setIsEditing(false)
+                })
+            }}
               onCancel={() => setIsEditing(false)}
             />
           )}
